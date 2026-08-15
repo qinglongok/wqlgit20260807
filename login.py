@@ -116,6 +116,9 @@ def register_ck(event=None):
     win1.bind('<Return>',lambda e:register_confirm())
     bt4.bind('<Return>', lambda e:register_confirm())
 
+def get_more():
+    webbrowser.open_new_tab('https://www.baidu.com')
+
 #布局
 label = tk.Label(win, text="Welcome TO Epiphany",\
                  font=("微软雅黑",20,"bold"),bg='#FFE4B5',relief='flat',highlightthickness=0)
@@ -140,7 +143,8 @@ bt3=tk.Button(win, text="注册",\
                  relief='flat',highlightthickness=0,command=register_ck)
 canvas.create_window(50, 260, window=bt3)
 bt3=tk.Button(win, text="获取更多>>>",\
-                 font=("仿宋",12,"bold"),bg='#CD853F',relief='flat',highlightthickness=0)
+                 font=("仿宋",12,"bold"),bg='#CD853F',relief='flat',\
+                 highlightthickness=0,command=get_more)
 canvas.create_window(310, 260, window=bt3)
 
 va1=tk.StringVar()
