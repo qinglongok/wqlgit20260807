@@ -119,6 +119,9 @@ def register_ck(event=None):
 def get_more():
     webbrowser.open_new_tab('https://www.baidu.com')
 
+def on_closing():
+    if msg.askokcancel("退出", "你确定要退出吗？"):
+        win.destroy()
 #布局
 label = tk.Label(win, text="Welcome TO Epiphany",\
                  font=("微软雅黑",20,"bold"),bg='#FFE4B5',relief='flat',highlightthickness=0)
@@ -180,6 +183,8 @@ canvas.create_window(220,150, window=entry2)
 #         print('Welcome To My Home page!')
 #     else:
 #         print('用户名不存在！')
+
+
 
 win.bind('<Return>',login)
 bt1.bind('<Return>',login)
