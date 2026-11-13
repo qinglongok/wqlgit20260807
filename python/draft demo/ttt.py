@@ -277,7 +277,6 @@ import datetime
 import random
 from typing import Self
 
-import t1
 def jiami(text):
     print(f'正在加密文字："{text}"')
     print('{0:=^30}'.format("加密密文"))
@@ -721,11 +720,33 @@ addrs=[
     "贵州省贵阳市观山湖区林城西路95号"
 ]
 list_id=[]
+dat=[
+    '2026-01-01',
+    '2026-01-16',
+    '2026-01-31',
+    '2026-02-15',
+    '2026-03-02',
+    '2026-03-17',
+    '2026-04-01',
+    '2026-04-16',
+    '2026-05-01',
+    '2026-05-16',
+    '2026-05-31',
+    '2026-06-15',
+    '2026-06-30',
+    '2026-07-15',
+    '2026-07-30',
+    '2026-08-14',
+    '2026-08-29',
+    '2026-09-13',
+    '2026-09-28',
+    '2026-10-10'
+]
 id_list=cursor.execute("select id from users").fetchall()
 for id in id_list:
     list_id.append(id[0])
 for uid in list_id:
-    addr=random.choice(addrs)
+    dt=random.choice(dat)
     sql='''
     update users
     set remark=case id%2 when 0  then 'this is china' else 'other land territory' end;'''
@@ -992,3 +1013,423 @@ else:
 # # page.quit()
 #
 # #J_SiteNavLogin > div.site-nav-menu-hd > div > a
+
+'''json.dumps(对象，ensure-ascii=false/true(false代表保留中文，true直接转换成ascii),indent(缩进字符数)'''
+data={
+    "username":"我爱中华",
+    "password":"" }
+json_data=json.dumps(data,ensure_ascii=False,indent=4)
+print(json_data)
+
+
+
+import pdfplumber,pytesseract
+
+all_text=[]
+pytesseract.pytesseract.tesseract_cmd = r"D:\orc_tesseract\tesseract.exe"
+try:
+    with pdfplumber.open(r"D:\简历\王青龙-简历.pdf") as pdf:
+        for page in pdf.pages:
+            image = page.to_image(resolution=300).original
+            text = pytesseract.image_to_string(image, lang="chi_sim+eng")
+            print(text)
+
+        #     text=page.extract_text()
+        #     print(text)
+        #     exit()
+        #     if text:
+        #         all_text.append(text)
+        # print(all_text)
+        # exit()
+        # with open("text.txt","w",encoding= 'utf-8') as f:
+        #     f.write(all_text)
+except Exception as e:
+    print(e)
+
+from PIL import Image
+# from pathlib import Path
+# image=list(Path('.').glob('*.png'))
+# imgs=[Image.open(f) for f in image]
+# img,*imgs=imgs
+# img.save("out.gif",format="GIF"
+#          ,append_images=imgs
+#          ,save_all=True
+#          ,duration=200
+#          ,loop=0)
+# #duration 每一帧停留200ms 每秒5帧 loop=0无限循环=1循环一次
+#
+# def get_qrcode():
+
+
+
+import qrcode
+from PIL import Image, ImageDraw, ImageFont
+
+qr = qrcode.QRCode(
+    version=5,
+    error_correction=qrcode.constants.ERROR_CORRECT_M,
+    box_size=10,
+    border=4,
+)
+ # info="""
+# name:lero\n
+# gender:man\n
+# age:18\n
+# email:163.com\n
+# """
+
+# vcard格式名片，扫码后直接可以添加到通讯录
+# 格式：BEGIN:VCARD 开头  END:VCARD 结束 必须为大写 (c+s+U）-->(切换大小写)
+vcard = """BEGIN:VCARD
+VERSION:3.0
+FN:lero
+GENDER:man
+BDAY:2008
+EMAIL:163@163.com
+END:VCARD"""
+qr.add_data(vcard)
+qr.make(fit=True)
+image = qr.make_image(fill_color="black", back_color="white")
+image.save('mingpaian.png')
+
+
+from PIL import Image
+# from pathlib import Path
+# image=list(Path('.').glob('*.png'))
+# imgs=[Image.open(f) for f in image]
+# img,*imgs=imgs
+# img.save("out.gif",format="GIF"
+#          ,append_images=imgs
+#          ,save_all=True
+#          ,duration=200
+#          ,loop=0)
+# #duration 每一帧停留200ms 每秒5帧 loop=0无限循环=1循环一次
+#
+# def get_qrcode():
+
+
+import qrcode
+qr=qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_M,
+    box_size=10,
+    border=4,
+)
+# info="""
+# name:lero\n
+# gender:man\n
+# age:18\n
+# email:163.com\n
+# """
+
+#vcard格式名片，扫码后直接可以添加到通讯录
+#格式：BEGIN:VCARD 开头  END:VCARD 结束 必须为大写 (c+s+U）-->(切换大小写)
+vcard = """BEGIN:VCARD
+VERSION:3.0
+FN:lero
+GENDER:man
+TEL;TYPE=CELL:13800138000
+BDAY:2008
+TITLE:客户经理
+ROLE:负责对接客户
+ORG:此时情绪此时天
+BDAY:2008
+EMAIL:163@163.com
+NOTE:可以自定内容
+END:VCARD"""
+qr.add_data(vcard)
+qr.make(fit=True)
+image=qr.make_image(fill_color="black", back_color="white")
+image.save('mingpaian.png')
+
+
+import tkinter as tk
+import time
+
+win=tk.Tk()
+win.title('横幅 效果 ')
+syw=win.winfo_screenwidth()
+syh=win.winfo_screenheight()
+w=800
+h=300
+psw=(syw-w)//2
+psh=(syh-h)//2
+win.geometry(f'{w}x{h}+{psw}+{psh}')
+win.configure(background='pink')
+msg='''
+亲爱的
+许久没有给你写信，甚是想念
+记得年初时节，我们初遇人海
+彼此陌生，但眼神交汇之际，却透出千般热烈
+世间爱情皆发端于此，我们没有成为例外
+也有幸成为彼此日间夜静的念想
+过往未曾遇见的时光里
+你我各自我为战，与生活抗衡，虽历经辛酸
+却也收获颇丰
+明白世俗道理，知晓人情冷暖
+在这数不清的清单中
+最重要的一项应该是遇见彼此
+从此往后便不再是你和我，而是我们
+写到这里，我停下笔来沉思
+脑海里拂过的是幸福时光的画面
+画面里内容很平凡
+画中人
+此刻笑意绵绵
+此情似水温柔gogoggogogo
+'''
+msg=[line for line in msg.splitlines() if line.strip() != '']
+# msg=[]
+# for l in poem.splitlines():
+#     s=l.strip()
+#     if s:
+#         msg.append(s)
+label=tk.Label(win
+               ,text=""
+               ,font=('KaiTi',20,'bold') #bold 加粗
+               ,bg='black'
+               ,fg='red'
+               # ,width=45
+               # ,height=16
+               ,anchor='center'
+               ,justify='left')
+label.pack(pady=100)
+l_dex=0
+c_dex=0
+def type_write():
+    global l_dex,c_dex
+    show=[]
+    for i in range(l_dex):
+        show.append(msg[i])
+    if l_dex<len(msg):
+        current_line=msg[l_dex][:c_dex+1]
+        show.append(current_line)
+    show_tx="\n".join(show)
+    label.configure(text=show_tx)
+    if c_dex+1>=len(msg[l_dex]):
+        l_dex+=1
+        c_dex=0
+        if l_dex>=len(msg):
+            win.after(3000,reset_all)
+            return
+
+    c_dex+=1
+    win.after(180,type_write)
+
+def reset_all():
+    global l_dex,c_dex
+    l_dex=0
+    c_dex=0
+    label.configure(text="")
+    win.after(500,type_write)
+
+type_write()
+win.mainloop()
+
+# import pandas as pd
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_excel('test2.xlsx',skiprows=1)
+# tol=len(df['期数'])
+# sub_df=df.iloc[:,1:(df.shape[1]-1)]
+# mask=sub_df==1
+# row_has=mask.any(axis=1)
+# hit_df=df[row_has].copy()#取出所有列
+# hit_df = hit_df.sort_values("期数",ascending=False).reset_index(drop=True)
+# qishu_list = hit_df["期数"].tolist()
+# print(qishu_list)
+#
+# exit()
+# if row_has.any():
+#     dex=row_has.idxmax()
+#     qishu = df.loc[dex, "期数"]
+#     print(f"红球 01 第一次开出，对应的期数：{qishu}")
+# exit()
+# print(sub_df)
+# dc=[]
+# for i in range(1,34):
+#         cnt=(sub_df==i).sum().sum()
+#         print(f'数字{i}出现{cnt}次')
+#         dt = {
+#             "数字": f'{i}',
+#             "出现次数": f'{cnt}',
+#             "频率": f'{cnt}',
+#         }
+#         dc.append(dt)
+# x=[item['数字'] for item in dc]
+# y=[int(item['出现次数']) for item in dc]
+# z=[round(int(item['出现次数'])/tol,2) for item in dc]
+# plt.rcParams["font.sans-serif"] = ["SimHei"]
+# plt.rcParams["axes.unicode_minus"] = False
+# plt.figure(figsize=(10,5))
+# bars=plt.bar(x,y,color="#2E86AB",width=0.8,label='中国撒娇的卡',alpha=0.8)
+# plt.legend(loc='best')
+# for bar in bars:
+#     h=bar.get_height()
+#     r=f'{int(h)/tol:.2%}'
+#     plt.text(bar.get_x()+bar.get_width()/2,h,f"{h}",ha='center')
+#
+# plt.title('红球13年-26年各球出现次数')
+# plt.xlabel("红球号码")
+# plt.ylabel("出现次数")
+# plt.yticks(np.arange(0,501,20))
+# plt.xticks(np.arange(0,34,1))
+# plt.show()
+#
+# # import matplotlib.pyplot as plt
+# #
+# # x = [1, 2, 3, 4]
+# # y = [10, 25, 16, 8]
+# #
+# # plt.bar(x, y)
+# # plt.xlabel("数字")
+# # plt.ylabel("出现次数")
+# # plt.title("数字出现次数")
+# # plt.show()
+#
+#
+# # import matplotlib.pyplot as plt
+# # import numpy as np
+# # plt.rcParams["font.sans-serif"] = ["SimHei"]
+# # plt.rcParams["axes.unicode_minus"] = False
+# # x=[0,1,2,3,4,5]
+# # y=[2,5,6,4,2,8]
+# # ret=plt.bar(x,y,color='blue',width=0.5)
+# #
+# # plt.title('柱状图')
+# # plt.yticks(np.arange(0,10,1))
+# # for bar in ret:
+# #     higet=bar.get_height()
+# #     plt.text(bar.get_x()+bar.get_width()/2,higet,f'{higet}',ha='center',va='bottom')
+# #
+# # plt.xlabel('号码')
+# # plt.ylabel('次数值')
+# #
+# # plt.show()
+
+import pandas as pd
+import sqlite3
+col_name=['issue','red_one','red_two','red_thr','red_four','red_five','red_six','blue']
+path=r"D:\pycharm\test.xlsx"
+df = pd.read_excel(path, engine="openpyxl",names=col_name)
+conn = sqlite3.connect(r"D:\pycharm\qlok.db")
+df.to_sql(
+            name='red_write_spread',
+            con=conn,
+            if_exists='replace',
+            index=False,
+            chunksize=1000
+)
+conn.close()
+
+'''
+WITH nums AS (
+    SELECT 1 AS ball UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL
+    SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL
+    SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL
+    SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL
+    SELECT 13 UNION ALL SELECT 14 UNION ALL SELECT 15 UNION ALL
+    SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL
+    SELECT 19 UNION ALL SELECT 20 UNION ALL SELECT 21 UNION ALL
+    SELECT 22 UNION ALL SELECT 23 UNION ALL SELECT 24 UNION ALL
+    SELECT 25 UNION ALL SELECT 26 UNION ALL SELECT 27 UNION ALL
+    SELECT 28 UNION ALL SELECT 29 UNION ALL SELECT 30 UNION ALL
+    SELECT 31 UNION ALL SELECT 32 UNION ALL SELECT 33
+),
+tmp1 as (select n.ball, max(m.issue) as fq
+         from nums as n
+                  left join red_write_spread m
+                  on n.ball in (m.red_one, m.red_two, m.red_thr, m.red_four, m.red_five, m.red_six)
+         group by n.ball
+         order by n.ball),
+tmp2 as(select max(issue)  as max_is from red_write_spread)
+select *,n.max_is-m.fq as jg from tmp1 m,tmp2 n;
+         /*
+    t.ball
+     ,group_concat(ball,',')
+    ,count(*) as snt
+from tmp1 t
+group by  fq;
+--having snt>1
+--order by fq;
+'''
+
+
+#宽表打平/拆分成宽表 根据实际业务需求进行处理
+
+import sqlite3
+import random
+print(sqlite3.sqlite_version_info) #3.50.4
+conn = sqlite3.connect('qlok.db')
+cursor=conn.cursor()
+sql1='insert into users values(23,"Koleo",85775629,"上海市浦东新区张江高科技园区博云路2号","other land territory",26,"2026-02-15");'
+conn.execute(sql1)
+conn.commit()
+addrs=[
+    "北京市朝阳区建国路88号",
+    "上海市浦东新区张江高科技园区博云路2号",
+    "广东省深圳市南山区科技园高新南一道",
+    "浙江省杭州市西湖区文三路478号",
+    "江苏省南京市鼓楼区中山北路217号",
+    "四川省成都市武侯区武侯祠大街188号",
+    "湖北省武汉市洪山区珞喻路1037号",
+    "陕西省西安市雁塔区雁塔西路76号",
+    "山东省济南市历下区经十路9777号",
+    "辽宁省沈阳市和平区青年大街374号",
+    "湖南省长沙市岳麓区麓山南路932号",
+    "福建省厦门市思明区厦大南路1号",
+    "河南省郑州市金水区农业路63号",
+    "云南省昆明市五华区一二一大街298号",
+    "贵州省贵阳市观山湖区林城西路95号"
+]
+dat=[
+    '2026-01-01',
+    '2026-01-16',
+    '2026-01-31',
+    '2026-02-15',
+    '2026-03-02',
+    '2026-03-17',
+    '2026-04-01',
+    '2026-04-16',
+    '2026-05-01',
+    '2026-05-16',
+    '2026-05-31',
+    '2026-06-15',
+    '2026-06-30',
+    '2026-07-15',
+    '2026-07-30',
+    '2026-08-14',
+    '2026-08-29',
+    '2026-09-13',
+    '2026-09-28',
+    '2026-10-10'
+]
+list_id=[]
+data=[]
+id_list=conn.execute("select id from users").fetchall()
+for id in id_list:
+    print(id[0])
+    list_id.append(id[0])
+for uid in list_id:
+    dt=random.choice(dat)
+    age=random.choice(range(20,51))
+    data.append((age,uid))
+    sql='''update users set add_date=? where id=? ;'''
+    cursor.execute(sql, (dt,uid))
+# cursor.executemany(sql, data)  ##一次性插入多条数据用excutemany()
+conn.commit()
+cursor.close()
+
+
+import pandas as pd
+import numpy as np
+path=r"D:\pycharm\test3.xlsx"
+df=pd.read_excel(path)
+mask=df.isna().sum()
+df.fillna(0)
+# na_pos=np.where(mask) #显示目标的横纵坐标
+# row,col=na_pos
+# i=1
+# for r,c in zip(row,col):
+#     print(f'第{i}个空值位置-->行坐标：{r},列坐标：{c}')
+#     i+=1
